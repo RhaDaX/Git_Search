@@ -1,0 +1,30 @@
+.row
+	.col-lg-8.col-md-7.col-sm-6
+		.page-header
+			h1 Bienvenue sur GitSearch !
+		= form_tag( home_path, method: "get") do
+			= label_tag(:q, "Username a rechercher :   ") 
+			= text_field_tag :q
+			br
+			= submit_tag("Envoyer")
+			- if @error != nil
+					.panel.panel-danger
+					  .panel-heading
+					    h3.panel-title
+								| Erreur
+					  .panel-body
+					    = flash[:error] = @error
+			end
+		.user_info
+			- if @user != nil
+				| Nom d'utilisateur : 
+				= @user.name
+				br
+				| Nombre de repos : 
+				= @user.public_repos
+				br
+				| Liste des repos : 
+				- @repos.each do |r|
+					p.repo = r.name
+
+	

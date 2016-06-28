@@ -1,0 +1,27 @@
+DOCTYPE
+html
+	head
+  	title GitSearch
+  	= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+  	= javascript_include_tag 'application', 'data-turbolinks-track' => true 
+  	= csrf_meta_tags
+    = stylesheet_link_tag "cyborg", :media => "all"
+    = yield(:page_stylesheet) if content_for?(:page_stylesheet)
+
+	body
+		.navbar.navbar-default.navbar-fixed-top
+			.container
+				.navbar-header
+					| GitSearch
+		.container
+			p.notice 
+				= notice
+			p.alert
+				= alert
+			#banner.page-header
+				= yield
+				
+  = javascript_include_tag "cyborg"
+  = yield(:page_javascript) if content_for?(:page_javascript)
+
+
