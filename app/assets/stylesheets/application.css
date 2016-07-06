@@ -13,3 +13,8 @@
  *
  *= require_self
  */
+
+
+p.repo {
+	padding-left: 20px;
+}

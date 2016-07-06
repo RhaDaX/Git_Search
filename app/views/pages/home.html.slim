@@ -1,30 +1,30 @@
 .row
-	.col-lg-8.col-md-7.col-sm-6
-		.page-header
+	.col-lg-10.col-md-9.col-sm-8
+		.jumbotron
 			h1 Bienvenue sur GitSearch !
-		= form_tag( home_path, method: "get") do
-			= label_tag(:q, "Username a rechercher :   ") 
-			= text_field_tag :q
 			br
-			= submit_tag("Envoyer")
-			- if @error != nil
-					.panel.panel-danger
-					  .panel-heading
-					    h3.panel-title
-								| Erreur
-					  .panel-body
-					    = flash[:error] = @error
-			end
+			= form_tag( home_path, method: "get") do
+				= label_tag(:q, "Username a rechercher :   ") 
+				= text_field_tag :q
+				br
+				br
+				= submit_tag("Envoyer", :class=>"btn btn-primary btn-lg")
+				- if @error != nil
+						.bs-component
+							.alert.alert-dimissible.alert-danger
+								button.close type="button" data-dismiss="alert" x
+								= flash[:error] = @error
 		.user_info
 			- if @user != nil
-				| Nom d'utilisateur : 
-				= @user.name
-				br
-				| Nombre de repos : 
-				= @user.public_repos
-				br
-				| Liste des repos : 
-				- @repos.each do |r|
-					p.repo = r.name
+				h3.text-warning Nom d'utilisateur : #{@user.name}
+				h4.text-info Nombre de repos : #{@user.public_repos}
+				.list-repos
+					h5.text-success Liste des repos : 
+					.repo
+						- @repos.sort{ |a,b| a.created_at <=> b.created_at }.each do |r|
+							p.repo 
+								b #{r.name} 
+								span.text-success crée le 
+								b #{r.created_at.strftime("%d/%m/%Y")}
 
 	

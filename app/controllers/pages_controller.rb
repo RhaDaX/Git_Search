@@ -11,7 +11,7 @@ class PagesController < ApplicationController
       @error = "Attention, c'est comme un verre de bière, ce champs ne doit jamais être vide !" 
     else
       begin
-        @user = Octokit.user @user_search
+        @user = Octokit.user( @user_search, :per_page => 100 )
         fetch_repos
       rescue 
         @error = "Oh erreur 404 ! Cet utilisateur n'existe pas"
@@ -20,7 +20,9 @@ class PagesController < ApplicationController
   end
   
   def fetch_repos
-    @repos = @user.rels[:repos].get.data
+    user = @user
+    @repos = Octokit.repos( @user_search, :per_page => 100)
+    #@repos = @user.rels[:repos].get.data
   end
   
 end
